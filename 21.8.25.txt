@@ -1,0 +1,32 @@
+CREATE DATABASE college;
+USE college;
+CREATE TABLE CSE (
+    sid INT PRIMARY KEY,
+    sname VARCHAR(30),
+    smarks INT
+);
+INSERT INTO CSE (sid, sname, smarks)
+VALUES
+(1, 'Arun', 85),
+(2, 'Priya', 92),
+(3, 'Kiran', 76);
+SELECT * FROM CSE;
+CREATE TABLE ECE (
+    sid INT PRIMARY KEY,
+    sname VARCHAR(30),
+    smarks INT
+);
+
+INSERT INTO ECE (sid, sname, smarks)
+VALUES
+(1, 'Divya', 88),
+(2, 'Rahul', 79),
+(3, 'Sneha', 95);
+
+SELECT * FROM ECE;
+UPDATE CSE
+SET smarks = 95
+WHERE sid = 2;  
+COMMIT;
+SELECT * FROM CSE;
+SHOW TABLES;
