@@ -1,0 +1,186 @@
+show databases;
+create database  shopping;
+use shopping;
+-- FOREIGN KEY
+-- Create 3 tables- category ,product and orders and  connecting them  through a Foreign key
+
+-- CATEGORY Table
+CREATE TABLE category (
+category_id INT PRIMARY KEY,
+category_name VARCHAR(50)
+);
+INSERT INTO category (category_id, category_name)
+VALUES 
+(1, 'Electronics'),
+(2, 'Furniture'),
+(3, 'Home Appliances');
+SELECT * FROM category;
+
+-- PRODUCT Table         
+CREATE TABLE product (
+	product_id INT PRIMARY KEY,
+	product_name VARCHAR(100),
+	price DECIMAL(10,2),
+	category_id INT,
+FOREIGN KEY (category_id) REFERENCES category(category_id)
+);
+INSERT INTO product VALUES
+(103, 'Sofa', 25000.00, 2),
+(104, 'Refrigerator', 40000.00, 3);
+
+DELETE FROM product WHERE product_id = 101;
+DELETE FROM product WHERE product_id = 102;
+INSERT INTO product VALUES 
+(101, 'Laptop', 55000.00, 1),
+(102, 'T-Shirt', 500.00, 2);
+SELECT * FROM product;
+
+-- ORDERS Table
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    product_id INT,
+    quantity INT,
+    order_date DATE,
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+INSERT INTO orders VALUES 
+(1001, 101, 2, '2025-08-25'),
+(1002, 102, 5, '2025-08-25');
+SELECT * FROM orders;
+
+-- get order details along with product and category information (for an overview on the customer's product details)
+SELECT 
+    orders.order_id,
+    product.product_name,
+    category.category_name,
+    orders.quantity,
+    product.price,
+    (orders.quantity * product.price) AS total_amount
+FROM orders
+JOIN product ON orders.product_id = product.product_id
+JOIN category ON product.category_id = category.category_id;
+
+-- dropping and recreating tables with ON DELETE and ON UPDATE CASCADE
+
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS category;
+
+-- CATEGORY Table with ENGINE=InnoDB for cascade support
+CREATE TABLE category (
+    category_id INT PRIMARY KEY,
+    category_name VARCHAR(50)
+) ENGINE=InnoDB;
+INSERT INTO category (category_id, category_name)
+VALUES 
+(1, 'Electronics'),
+(2, 'Furniture'),
+(3, 'Home Appliances');
+SELECT * FROM category;
+
+-- PRODUCT Table with cascade
+CREATE TABLE product (
+    product_id INT PRIMARY KEY,
+    product_name VARCHAR(100),
+    price DECIMAL(10,2),
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES category(category_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;
+INSERT INTO product VALUES
+(101, 'Laptop', 55000.00, 1),
+(102, 'T-Shirt', 500.00, 2),
+(103, 'Sofa', 25000.00, 2),
+(104, 'Refrigerator', 40000.00, 3);
+SELECT * FROM product;
+
+-- ORDERS Table with cascade
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    product_id INT,
+    quantity INT,
+    order_date DATE,
+    FOREIGN KEY (product_id) REFERENCES product(product_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;
+INSERT INTO orders VALUES 
+(1001, 101, 2, '2025-08-25'),
+(1002, 102, 5, '2025-08-25'),
+(1003, 104, 3, '2025-08-25');
+SELECT * FROM orders;
+
+-- get order details along with product and category information (for an overview on the customer's product details)
+SELECT 
+    orders.order_id,
+    product.product_name,
+    category.category_name,
+    orders.quantity,
+    product.price,
+    (orders.quantity * product.price) AS total_amount
+FROM orders
+JOIN product ON orders.product_id = product.product_id
+JOIN category ON product.category_id = category.category_id;
+
+-- Using LIKE operator to filter products and categories
+
+-- 1. Finding products where the name starts with 'R'
+SELECT * FROM product
+WHERE product_name LIKE 'R%';
+
+-- 2. Finding products where the name ends with 'a'
+SELECT * FROM product
+WHERE product_name LIKE '%a';
+
+-- 3. Finding products where the name contains 'top'
+SELECT * FROM product
+WHERE product_name LIKE '%top%';
+
+-- 4. Finding categories that contain the word 'Home'
+SELECT * FROM category
+WHERE category_name LIKE '%Home%';
+
+-- 5. Getting order details where product name contains 'a'
+SELECT 
+    orders.order_id,
+    product.product_name,
+    category.category_name,
+    orders.quantity,
+    product.price,
+    (orders.quantity * product.price) AS total_amount
+FROM orders
+JOIN product ON orders.product_id = product.product_id
+JOIN category ON product.category_id = category.category_id
+WHERE product.product_name LIKE '%a%';
+
+-- Creating a View for Order Details with Product & Category Information
+CREATE VIEW order_summary AS
+SELECT 
+    orders.order_id,
+    product.product_name,
+    category.category_name,
+    orders.quantity,
+    product.price,
+    (orders.quantity * product.price) AS total_amount
+FROM orders
+JOIN product ON orders.product_id = product.product_id
+JOIN category ON product.category_id = category.category_id;
+
+SELECT * FROM order_summary;
+-- Using WHERE with View
+SELECT * FROM order_summary
+WHERE category_name LIKE 'Electronics';
+-- Using LIKE with View
+SELECT * FROM order_summary WHERE product_name LIKE '%a%';
+
+-- DELETE VIEW 
+--  deleting order with ID 1002 from orders table
+DELETE FROM orders WHERE order_id = 1002;
+SELECT * FROM order_summary;  -- Verify deletion reflected in view
+
+-- DROP VIEW (Completely removing the view structure)
+DROP VIEW order_summary;
+
