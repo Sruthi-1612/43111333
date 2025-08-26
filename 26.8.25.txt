@@ -1,0 +1,341 @@
+show databases;
+create database employee;
+USE employee;
+CREATE TABLE staff (
+emp_id INT PRIMARY KEY,
+emp_name VARCHAR(50),
+designation VARCHAR(50),
+salary DECIMAL(10,2),
+joining_date DATE
+);
+SHOW TABLES;
+INSERT INTO staff (emp_id, emp_name, designation, salary, joining_date)
+VALUES 
+(101, 'Amit Sharma', 'Manager', 75000.00, '2022-05-15'),
+(102, 'Priya Nair', 'Developer', 55000.00, '2023-01-10'),
+(103, 'Ravi Kumar', 'Tester', 40000.00, '2023-06-01'),
+(104, 'Sneha Roy', 'HR', 50000.00, '2021-09-12');
+INSERT INTO staff (emp_id, emp_name, designation, salary, joining_date)
+VALUES
+(105, 'Manish Tiwari', 'Developer', 62000.00, '2023-04-22'),
+(106, 'Divya Patel', 'Tester', 42000.00, '2022-12-15'),
+(107, 'Vikram Rao', 'Manager', 80000.00, '2021-11-09'),
+(108, 'Neha Joshi', 'HR', 51000.00, '2023-02-01');
+SELECT * FROM staff;
+
+CREATE TABLE staff_backup (
+    emp_id INT PRIMARY KEY,
+    emp_name VARCHAR(50),
+    designation VARCHAR(50),
+    salary DECIMAL(10,2),
+    joining_date DATE
+);
+INSERT INTO staff_backup (emp_id, emp_name, designation, salary, joining_date)
+VALUES
+(201, 'Karan Mehta', 'Analyst', 60000.00, '2022-07-11'),
+(202, 'Ruchi Singh', 'Developer', 58000.00, '2023-03-19');
+INSERT INTO staff_backup (emp_id, emp_name, designation, salary, joining_date)
+VALUES
+(203, 'Arjun Das', 'Tester', 45000.00, '2023-05-10'),
+(204, 'Meera Iyer', 'Manager', 83000.00, '2022-06-14'),
+(205, 'Sunil Verma', 'Developer', 56000.00, '2023-07-22'),
+(206, 'Pooja Saxena', 'Analyst', 61000.00, '2021-08-17');
+
+
+-- ARITHMETIC  Operators (+, -, *, /, %)
+-- Addition:
+SELECT emp_name, salary, salary + 5000 AS increased_salary
+FROM staff;
+-- Subtraction:
+SELECT emp_name, salary - 2000 AS deduction FROM staff;
+-- Multiplication:
+SELECT emp_name, salary * 2 AS double_salary FROM staff;
+-- Division:
+SELECT emp_name, salary / 12 AS monthly_salary FROM staff;
+-- Modulus:
+SELECT emp_id, salary % 10000 AS remainder_value FROM staff;
+
+--  COMPARISON Operators(=,!=,>,<,>=,<=)
+-- Equal To:
+SELECT * FROM staff WHERE designation = 'Manager';
+-- Not Equal To:
+SELECT * FROM staff WHERE designation != 'HR';
+-- Greater Than:
+SELECT * FROM staff WHERE salary > 50000;
+-- Less Than:
+SELECT * FROM staff WHERE salary < 50000;
+-- Greater or Equal:
+SELECT * FROM staff WHERE salary >= 60000;
+-- Less or Equal:
+SELECT * FROM staff WHERE salary <= 40000;
+
+
+-- LOGICAL Operators(And,Or, Not)
+-- AND (Both conditions true):
+SELECT * FROM staff WHERE salary > 40000 AND designation = 'Developer';
+-- OR (Either condition true):
+SELECT * FROM staff WHERE designation = 'HR' OR designation = 'Tester';
+-- NOT (Complements condition):
+SELECT * FROM staff WHERE NOT designation = 'Manager';
+
+-- SPECIAL Operators(BETWEEN , IN , LIKE ,IS NULL , IS NOT NULL):
+-- BETWEEN (Range):
+SELECT * FROM staff WHERE salary BETWEEN 45000 AND 70000;
+-- IN (Matches any value):
+SELECT * FROM staff WHERE designation IN ('Developer','Tester','HR');
+-- LIKE (Pattern matching):
+SELECT * FROM staff WHERE emp_name LIKE 'S%';   -- Starts with S
+SELECT * FROM staff WHERE emp_name LIKE '%a';   -- Ends with a
+SELECT * FROM staff WHERE emp_name LIKE '%ra%';  -- Contains ra
+SELECT * FROM staff WHERE emp_name LIKE '_r%';   -- Second character r
+-- IS NULL (Checks for NULL):
+-- IS NOT NULL (Checks Not NULL):
+SELECT * FROM staff WHERE joining_date IS NOT NULL;
+
+
+-- practice questions
+-- 1. Salary Increment & Filtering
+-- Display emp_name, original salary, and salary increased by 10% (arithmetic:multiplication) for employees whose salary is between ₹45,000 and ₹70,000 (comparison:AND + BETWEEN).
+SELECT emp_name,salary,salary * 1.10 AS increased_salary FROM staff
+WHERE salary BETWEEN 45000 AND 70000;
+
+
+-- 2. Conditional Bonus
+-- List employees whose designation is either Manager or Developer (IN) and salary is greater than ₹50,000 (AND). Show their annual salary (salary * 12).
+
+SELECT emp_name,salary,salary * 12 AS annual_salary  FROM staff 
+WHERE designation IN ('Manager', 'Developer') AND salary > 50000;
+
+-- 3. Date and Pattern Matching
+-- Find employees who joined between '2022-01-01' and '2023-01-01' (BETWEEN) and whose names start with 'S' (LIKE).
+
+SELECT emp_name, joining_date FROM staff
+WHERE joining_date BETWEEN '2022-01-01' AND '2023-01-01' AND emp_name LIKE 'S%';
+
+-- 4. Modulus and NOT Operator
+-- Show employees whose salary remainder when divided by 5000 is not 0 
+-- (arithmetic:% + NOT)
+
+SELECT emp_name, salary FROM staff 
+WHERE NOT (salary % 5000 = 0);
+
+-- 5. Logical Combination
+-- List employees who are either (HR or Tester) OR have salary greater than ₹60,000 and joined after '2022-06-01'.
+
+SELECT * FROM staff 
+WHERE (designation IN ('HR', 'Tester')) OR (salary > 60000 AND joining_date > '2022-06-01');
+
+-- 6. Bonus Calculation for Developers
+-- Show emp_id, emp_name, and a calculated bonus as salary * 0.15 for employees who are Developers and whose name contains 'a'
+-- (LIKE + AND).
+
+SELECT emp_id,emp_name,salary * 0.15 AS bonus FROM staff 
+WHERE designation = 'Developer' AND emp_name LIKE '%a%';
+
+-- 7. NULL Check with Pattern
+-- Find employees who have no joining date (IS NULL) and whose names end with 'r'.
+
+SELECT * FROM staff WHERE joining_date IS NULL   AND emp_name LIKE '%r';
+
+-- 8. Multiple Conditions with Arithmetic
+-- Show employees where monthly salary (salary / 12) is greater than ₹5,000 and designation is not 'Tester'.
+
+SELECT emp_name,salary,salary / 12 AS monthly_salary FROM staff
+ WHERE (salary / 12) > 5000 AND designation != 'Tester';
+
+-- 9. Complex Filter
+-- Display employees:
+-- Whose salary is either between ₹40,000 and ₹70,000 OR whose designation is Manager,
+-- AND whose names have r as the second character.
+
+SELECT * FROM staff 
+WHERE (salary BETWEEN 40000 AND 70000 OR designation = 'Manager') AND emp_name LIKE '_r%';
+
+-- 10.Show employees earning more than ₹50,000 and joined before 2023.
+SELECT * FROM staff WHERE salary > 50000 AND joining_date < '2023-01-01';
+
+-- 11.Display names and salary increased by 20% for Developers and HR only.
+SELECT emp_name, salary, salary * 1.2 AS new_salary FROM staff 
+WHERE designation IN ('Developer','HR');
+
+-- 12.List employees whose salary is not between ₹40,000 and ₹70,000 and name starts with ‘P’.
+SELECT * FROM staff 
+WHERE salary NOT BETWEEN 40000 AND 70000 AND emp_name LIKE 'P%';
+
+-- 13.Show annual salary only for Managers and Developers earning above ₹55,000.
+SELECT emp_name, salary * 12 AS annual_salary  FROM staff 
+WHERE designation IN ('Manager','Developer') AND salary > 55000;
+
+-- 14.List employees whose joining_date is NULL or salary less than ₹45,000.
+SELECT * FROM staff WHERE joining_date IS NULL OR salary < 45000;
+
+-- 15.Find employees with 'a' in their name and monthly salary more than ₹5000.
+SELECT emp_name, salary / 12 AS monthly_salary FROM staff 
+WHERE emp_name LIKE '%a%' AND (salary / 12) > 5000;
+
+-- 16.Show employees whose designation is not 'Tester' and salary is divisible by 5000.
+SELECT * FROM staff WHERE designation != 'Tester' AND salary % 5000 = 0;
+
+-- 17.List names of employees who joined between 2022 and 2023 and are HR or Manager.
+SELECT emp_name FROM staff 
+WHERE joining_date BETWEEN '2022-01-01' AND '2023-12-31'   AND designation IN ('HR','Manager');
+
+-- 18.Find employees whose name ends with 'r' and salary not equal to ₹50000.
+SELECT * FROM staff WHERE emp_name LIKE '%r' AND salary != 50000;
+
+-- 19.Show employees with annual salary more than ₹6,00,000 or designation as HR.
+SELECT * FROM staff WHERE (salary * 12) > 600000 OR designation = 'HR';
+
+-- 20.Find employees where second letter in name is ‘r’ and joined after 2021.
+SELECT * FROM staff WHERE emp_name LIKE '_r%' AND joining_date > '2021-12-31';
+
+-- 21.Display employees where salary is either less than ₹45,000 or more than ₹70,000 and designation is Developer.
+SELECT * FROM staff WHERE (salary < 45000 OR salary > 70000) AND designation = 'Developer';
+
+-- 22.List names of employees whose joining_date is known and salary between ₹50,000 and ₹80,000.
+SELECT emp_name FROM staff WHERE joining_date IS NOT NULL AND salary BETWEEN 50000 AND 80000;
+
+-- 23.Show names, salary, and bonus (10% of salary) for all except HR.
+SELECT emp_name, salary, salary * 0.10 AS bonus FROM staff WHERE designation != 'HR';
+
+-- 24.Find employees whose name contains ‘i’ and salary not divisible by 10000.
+SELECT * FROM staff WHERE emp_name LIKE '%i%' AND salary % 10000 != 0;
+
+-- 25.Show employees who joined in 2023 or have salary exactly ₹75,000.
+SELECT * FROM staff WHERE YEAR(joining_date) = 2023 OR salary = 75000;
+
+-- 26.Find employees where name starts with 'S' and annual salary is above ₹5,00,000.
+SELECT * FROM staff WHERE emp_name LIKE 'S%' AND (salary * 12) > 500000;
+
+-- 27.Display employees who are Manager or Developer and joined before 2022-01-01.
+SELECT * FROM staff WHERE designation IN ('Manager','Developer') AND joining_date < '2022-01-01';
+
+-- 28.Show employees whose name has ‘a’ and ‘r’ both and salary > ₹40,000.
+SELECT * FROM staff WHERE emp_name LIKE '%a%' AND emp_name LIKE '%r%' AND salary > 40000;
+
+-- 29.Find employees whose name is 5 characters long and salary between ₹45,000 and ₹60,000.
+SELECT * FROM staff WHERE emp_name LIKE '_____' AND salary BETWEEN 45000 AND 60000;
+
+-- 30.Find workers not in HR or Admin with salary between 70,000 and 3,00,000
+SELECT * FROM staff WHERE designation NOT IN ('HR', 'Admin') AND salary BETWEEN 70000 AND 300000;
+
+-- 31.Find workers with first name starting with 'V' and salary greater than or equal to 2,00,000
+SELECT * FROM staff WHERE emp_name LIKE 'V%' AND salary >= 200000;
+
+-- 32.Find workers not in Admin with salary < 100000.
+SELECT * FROM staff WHERE designation != 'Admin' AND salary < 100000;
+
+
+-- AGGREGATE Functions( MIN() , MAX() , AVG() , COUNT() , SUM() )
+
+-- MIN() – Finds lowest value
+SELECT MIN(salary) AS Lowest_salary  FROM staff;       -- Returns lowest salary.
+
+-- MAX() - Finds highest values
+SELECT MAX(salary) AS Highest_salary FROM staff;       -- Returns highest salary in the table.
+
+-- AVG() - Calculates average value
+SELECT AVG(salary) AS Average_salary FROM staff;       -- Gives average salary of employees.
+
+-- COUNT() - Counts number of rows
+SELECT COUNT(*) AS Total_Employees FROM staff;         -- Counts all employees in the staff table.
+
+-- SUM() - Calculates total sum of a numeric column
+SELECT SUM(salary) AS Total_salary FROM staff;         -- total salary of all employees.
+
+-- practice questions
+
+-- 1. Minimum salary from HR department(Designation)
+SELECT MIN(salary) AS Min_salary_HR FROM staff WHERE designation='HR';
+
+-- 2.Find the average salary of employees who joined after 2022-01-01.
+SELECT AVG(salary) AS avg_salary FROM staff WHERE joining_date = '2022-01-01';
+
+-- 3.Find maximum salary among employees who are Developers.
+SELECT MAX(salary) AS max_salary FROM staff WHERE designation = 'Developer';
+ 
+-- 4.Count employees who earn more than ₹50,000.
+SELECT COUNT(*) AS High_salary_employees FROM staff WHERE salary > 50000 ;
+
+-- 5.Find total salary of employees whose names start with 'S'.
+SELECT SUM(salary) AS Total_salary FROM staff WHERE emp_name LIKE 'S%' ;
+
+-- 6.Find average salary of employees whose salary is between ₹50,000 and ₹1,00,000.
+SELECT AVG(salary) AS avg_salray FROM staff WHERE salary BETWEEN 50000 AND 100000 ;
+
+-- 7.Find highest salary among employees whose designation is not 'Admin'.
+SELECT MAX(salary) AS highest_salary FROM staff WHERE designation != 'admin';
+
+-- 8. Total salary for HR and Admin departments combined.
+SELECT SUM(salary) AS Total_salary FROM staff WHERE designation IN('HR','Admin');
+
+-- 9.Total salary of employees with salary between 50000 and 200000.
+SELECT SUM(salary) AS Total_salary FROM staff WHERE salary BETWEEN 50000 AND 200000 ;
+
+SELECT * FROM staff;
+SELECT * FROM staff_backup;
+-- UNION (combines data)
+
+SELECT emp_id, emp_name, designation, salary, joining_date
+FROM staff
+UNION
+SELECT emp_id, emp_name, designation, salary, joining_date
+FROM staff_backup;
+
+-- UNION ALL(include duplicates)
+
+SELECT emp_id, emp_name, designation, salary, joining_date
+FROM staff
+UNION ALL
+SELECT emp_id, emp_name, designation, salary, joining_date
+FROM staff_backup;
+
+-- example: Combine employees from both tables earning more than 50,000 
+SELECT emp_name,designation,salary FROM staff
+WHERE salary > 50000
+UNION 
+SELECT emp_name,designation,salary  FROM staff_backup 
+WHERE salary > 50000 ;
+
+
+-- CASE :
+-- The CASE statement allows conditional logic in SQL queries, similar to IF-ELSE statements in programming.
+-- Syntax:
+-- SELECT 
+--   column1,
+--    CASE 
+--        WHEN condition1 THEN result1
+--        WHEN condition2 THEN result2
+--        ELSE default_result
+--    END AS alias_name
+-- FROM table_name;
+
+-- practice questions
+-- 1. Categorize Employees by Salary
+SELECT emp_name, salary,
+	CASE 
+		WHEN salary >= 70000 THEN 'High Salary'
+        WHEN salary BETWEEN 50000 AND 69999 THEN 'Medium Salary'
+        ELSE 'Low Salary'
+	END AS Salary_category
+FROM staff;
+
+-- 2.Bonus Calculation Based on Designation
+SELECT emp_name,designation,salary,
+       CASE 
+           WHEN designation = 'Manager' THEN salary * 0.20
+           WHEN designation = 'Developer' THEN salary * 0.15
+           ELSE salary * 0.10
+       END AS Bonus
+FROM staff;
+
+-- 3.Joining Date Category
+SELECT emp_name,joining_date,
+       CASE
+           WHEN joining_date < '2022-01-01' THEN 'Senior Employee'
+           ELSE 'New Employee'
+       END AS Employee_type
+FROM staff;
+
+
+
