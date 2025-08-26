@@ -1,0 +1,53 @@
+use sathyabama;
+CREATE TABLE students (
+    roll_no INT NOT NULL,                
+    name VARCHAR(50) NOT NULL,               
+    age INT(2),            
+    email VARCHAR(100),              
+    course VARCHAR(50) DEFAULT 'CSE',    
+    unique(roll_no)
+);
+INSERT INTO students (roll_no, name, age, email, course)
+VALUES 
+(1, ' Sruthi b', 20, 'sruthi@example.com', 'CSE'),
+(2, 'Nijanthan', 21, 'nijan@example.com', 'ECE'),
+(3, 'Pankaj', 19, 'pankaj@example.com', 'CSE'),
+(4, 'Arun', 22, 'arun@example.com', 'IT'),
+(5, 'Deepak', 23, 'deepak@example.com', 'MECH');
+select * from students;
+alter table students modify age int not null;
+alter table students modify email varchar(100) unique;
+desc students;
+insert into students values(3, "sid", 20, "sid@example.com", "AI");
+insert into students values(6, "sid", 20, "sid@example.com", "AI");
+alter table students drop index email;
+alter table students drop index course;
+
+#primary key
+alter table students modify roll_no int primary key;
+desc students;
+
+#check constraints
+alter table students add check(age<=120);
+insert into students values(7,"pak", 125, "pak@example.com","MBA");
+
+# removign contraints
+
+alter table students drop constraint roll_no;
+
+ALTER TABLE students
+ADD CONSTRAINT chk_age CHECK (age <= 120);
+select * from students;
+
+ALTER TABLE students
+DROP  age;
+alter table students add age int;
+ALTER TABLE students
+ADD CHECK (age <= 120);
+
+
+insert into students values(10,"pagkn", "paksd@example.com","MBA",120);
+ALTER TABLE students
+drop check students_chk_1;
+
+insert into students values(11,"pagfgkn", "pakffsd@example.com","MBA",125);
