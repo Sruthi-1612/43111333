@@ -1,0 +1,194 @@
+show databases;
+use management;
+create table Customers(
+Customer_ID INT PRIMARY KEY,
+Customer_Name VARCHAR(50),
+Country VARCHAR(50)
+);
+INSERT INTO Customers(Customer_ID, Customer_Name,Country) 
+VALUES
+(101,'Amith Sharma','India'),
+(102,'Jhon Smith','USA'),
+(103,'Maria Garchia','Germany'),
+(104,'Li Wie','China'),
+(105,'Kim Taehyung','South Korea'),
+(106,'David Brown','UK'),
+(107,'Tara Shiva','India'),
+(108,'James Lee','USA');
+
+-- ORDER BY
+-- Using Ascending order(Default)
+SELECT * FROM Customers ORDER BY Customer_Name;
+
+-- Descending Order
+SELECT * FROM Customers ORDER BY Customer_Name DESC;
+
+-- Order By Mutiple columns
+SELECT * FROM Customers ORDER BY Country,Customer_Name;
+
+-- Descending Order for Country but Ascending for Name
+SELECT * FROM Customers ORDER BY Country DESC ,Customer_Name ASC;
+
+-- Using NOT IN
+SELECT * FROM Customers WHERE Country  NOT IN ('USA','Germany')
+ ORDER  BY Country ,Customer_Name;
+ 
+ -- Using LIKE
+ SELECT * FROM Customers WHERE Customer_Name LIKE 'A%' ORDER BY Country;
+ 
+ -- Order by CASE (Custom Sorting)
+ -- 1.Display customers who are not from USA, sorted by CustomerName (A to Z).
+ SELECT * FROM Customers
+ ORDER BY 
+	CASE Country 
+		WHEN 'India' THEN 1
+		WHEN 'USA' THEN 2
+		ELSE 3
+    END;
+    
+-- Practice questions 
+-- 1.Display customers who are not from USA, sorted by CustomerName (A to Z).
+ SELECT * FROM Customers WHERE Country != 'USA'
+ ORDER BY Customer_Name ASC;
+ 
+-- 2. Display all customers whose names start with 'J' and are not from 'USA'. 
+ SELECT * FROM Customers WHERE Customer_Name LIKE 'J%' AND Country <> 'USA' 
+ ORDER BY Customer_Name ;
+ 
+ -- 3. Display customers whose names have exactly 4 letters before the space.
+ SELECT * FROM Customers WHERE Customer_Name LIKE '____ %';  -- Space between _ and % matters
+ 
+ -- 4. Display the first 5 customers alphabetically.
+ SELECT * FROM Customers ORDER BY Customer_Name LIMIT 5;
+ 
+ -- 5.Show total customers, and also how many are from 'India' using CASE in COUNT.
+SELECT 
+    COUNT(*) AS Total_Customers,
+    COUNT(CASE WHEN Country = 'India' THEN 1 END) AS India_Customers
+FROM Customers;
+
+-- GROUP BY 
+
+-- Syntax :
+-- SELECT column_name, AGGREGATE_FUNCTION(column_name)
+-- FROM table_name
+-- GROUP BY column_name;
+
+-- Rules : GROUP BY must come after WHERE (if used) but before ORDER BY.
+-- Every column in SELECT (except aggregates) must be in GROUP BY.
+
+-- example: Count how many customers are in each country.
+SELECT Country ,COUNT(*) AS Total_Customers
+FROM Customers 
+GROUP BY Country;
+
+-- HAVING & LIMIT
+-- Difference Between WHERE and HAVING:
+-- WHERE filters rows before grouping.
+-- HAVING filters groups after grouping.
+
+SELECT Country, COUNT(*) AS Total_Customers
+FROM Customers
+GROUP BY Country
+HAVING COUNT(*) > 1
+ORDER BY Total_Customers DESC
+LIMIT 1;
+
+
+SELECT Country , COUNT(*) AS Total_Customers
+FROM Customers
+GROUP BY Country
+HAVING COUNT(*) > 1;
+
+-- UPPER()
+SELECT UPPER(Customer_Name) AS UpperName
+FROM Customers;
+
+-- LOWER()
+SELECT LOWER(Customer_Name) AS LowerName
+FROM Customers;
+
+-- 1. LTRIM() : Removes spaces from the left side of a string.
+-- Syntax: SELECT LTRIM('   Hello World') AS Result;
+
+-- 2. RTRIM() : Removes spaces from the right side of a string
+-- Syntax: SELECT RTRIM('Hello World   ') AS Result;
+
+-- 3. TRIM() : Removes spaces from both sides of a string.
+-- Syntax: SELECT TRIM('   Hello World   ') AS Result;
+
+SELECT 
+    CustomerName,
+    LTRIM(CustomerName) AS Left_Trimmed,
+    RTRIM(CustomerName) AS Right_Trimmed,
+    TRIM(CustomerName) AS Fully_Trimmed
+FROM Customers;
+
+SELECT 
+    UPPER(TRIM(Customer_Name)) AS UpperCleanName,
+    LOWER(TRIM(Country)) AS LowerCleanCountry
+FROM Customers;
+
+-- OFFSET
+-- OFFSET with LIMIT
+SELECT * FROM Customers
+ORDER BY CustomerName
+LIMIT 3 OFFSET 2;
+
+-- OFFSET with FETCH
+SELECT * FROM Customers
+ORDER BY CustomerName
+OFFSET 2 ROWS      -- Skips first 2 rows after sorting by CustomerName.Returns next 3 rows.
+FETCH NEXT 3 ROWS ONLY;
+
+-- OFFSET with LIMIT (Two-Parameter Form)
+SELECT * FROM Customers
+ORDER BY CustomerName          -- First number = OFFSET (skip rows).Second number = number of rows to return.
+LIMIT 2, 3;    
+
+-- 1.Skips first 5 customers and fetches next 10.
+SELECT * FROM Customers
+ORDER BY CustomerID
+LIMIT 10 OFFSET 5;
+
+-- LIMIT
+SELECT * FROM Customers
+LIMIT 5;                -- Returns the first 5 rows from the Customers table.
+
+
+ALTER TABLE Customers 
+ADD COLUMN Department VARCHAR(50),
+ADD COLUMN Salary DECIMAL(10,2);
+
+UPDATE Customers SET Department='IT', Salary=120000 WHERE CustomerID=1;
+UPDATE Customers SET Department='HR', Salary=90000 WHERE CustomerID=2;
+UPDATE Customers SET Department='IT', Salary=150000 WHERE CustomerID=3;
+UPDATE Customers SET Department='Finance', Salary=500000 WHERE CustomerID=4;
+UPDATE Customers SET Department='Finance', Salary=80000 WHERE CustomerID=5;
+UPDATE Customers SET Department='HR', Salary=60000 WHERE CustomerID=6;
+
+-- Practice questions
+-- 1: Departments with average salary > 100000
+SELECT Department, AVG(Salary) AS Avg_Salary
+FROM Customers
+GROUP BY Department
+HAVING AVG(Salary) > 100000;
+
+-- 2: Departments where max salary = 500000
+SELECT Department, MAX(Salary) AS Max_Salary
+FROM Customers
+GROUP BY Department
+HAVING MAX(Salary) = 500000;
+
+-- 3: Departments with more than 1 employee & total salary > 100000
+SELECT Department, COUNT(*) AS Employee_Count, SUM(Salary) AS Total_Salary
+FROM Customers
+GROUP BY Department
+HAVING COUNT(*) > 1 AND SUM(Salary) > 100000;
+
+-- 4: Departments with avg salary between 50000 and 200000
+SELECT Department, AVG(Salary) AS Avg_Salary
+FROM Customers
+GROUP BY Department
+HAVING AVG(Salary) BETWEEN 50000 AND 200000;
+
