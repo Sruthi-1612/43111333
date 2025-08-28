@@ -1,32 +1,50 @@
-create table award_winners(
-id int,
-name varchar(25),
-award_name varchar(30));
+CREATE TABLE award_winners(
+id INT,
+name VARCHAR(25),
+award_name VARCHAR(30)
+);
 
-insert into award_winners values(001,'Karthick','Volleyball winners'),(002,'Gopi','Basketball Runners'),(003,'Adib','Oscar winners'),
-(004,'Harij','English SpellBee 2nd Runner-up'),(005,'Loki','Volleyball winners'),(006,'Sakthi','Badminton Nationals runners'),
+INSERT INTO award_winners
+VALUES
+(001,'Karthick','Volleyball winners'),
+(002,'Gopi','Basketball Runners'),
+(003,'Adib','Oscar winners'),
+(004,'Harij','English SpellBee 2nd Runner-up'),
+(005,'Loki','Volleyball winners'),
+(006,'Sakthi','Badminton Nationals runners'),
 (007,'Iqhlas','Debug winners'),(008,'AK','Basketball runners'),(009,'Kamal','Hackathon runners'),
 (010,'Barath','Hackathon winners');
 
-select * from award_winners;
+SELECT * FROM award_winners;
 
-create table students(
-id int,
-name varchar(25));
+CREATE TABLE students(
+id INT,
+name VARCHAR(25)
+);
 
-insert into students values(005,'Loki'),(1001,'Srihari'),(1003,'Dinesh'),(001,'Karthick'),(1005,'Tharun'),
-(1006,'Vamsi'),(1007,'Monish'),(1008,'Rohith'),(1009,'Alwyn'),(1010,'Akash');
+INSERT INTO students
+VALUES
+(005,'Loki'),
+(1001,'Srihari'),
+(1003,'Dinesh'),
+(001,'Karthick'),
+(1005,'Tharun'),
+(1006,'Vamsi'),
+(1007,'Monish'),
+(1008,'Rohith'),
+(1009,'Alwyn'),
+(1010,'Akash');
 
-select * from students;
+SELECT * FROM students;
 
-select * from students 
-where id=(select id from award_winners where id=5);
+SELECT * FROM students 
+WHERE id=(SELECT id FROM award_winners WHERE id=5);
 
-select * from students 
-where id=(select id from award_winners where name="karthick");
+SELECT * FROM students 
+WHERE id=(SELECT id FROM award_winners WHERE name="karthick");
 
-select * from award_winners
-where id=(select id from students where id=1);
+SELECT * FROM award_winners
+WHERE id=(SELECT id FROM students WHERE id=1);
 
-select * from award_winners
-where id=(select id from students where name="Loki");
+SELECT * FROM award_winners
+WHERE id=(SELECT id FROM students WHERE name="Loki");
