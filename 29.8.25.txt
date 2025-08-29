@@ -1,0 +1,71 @@
+CREATE DATABASE joins;
+USE joins;
+
+-- Table 1: Students
+CREATE TABLE Students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50),
+    course_id INT
+);
+
+INSERT INTO Students (student_id, student_name, course_id) VALUES
+(1, 'Sruthi', 101),
+(2, 'Siddhi', 102),
+(3, 'Divya', 103),
+(4, 'Kiran', NULL);
+
+-- Table 2: Courses
+CREATE TABLE Courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50)
+);
+
+INSERT INTO Courses (course_id, course_name) VALUES
+(101, 'Database Systems'),
+(102, 'Computer Networks'),
+(104, 'Operating Systems');
+
+-- CROSS JOIN
+SELECT s.student_id, s.student_name, c.course_id, c.course_name
+FROM Students s
+CROSS JOIN Courses c;
+
+SELECT s.student_id, s.student_name, c.course_name
+FROM Students s
+CROSS JOIN Courses c;
+
+-- INNER JOIN
+SELECT s.student_id, s.student_name, c.course_name
+FROM Students s
+INNER JOIN Courses c ON s.course_id = c.course_id;
+
+SELECT s.student_id, s.student_name
+FROM Students s
+INNER JOIN Courses c ON s.course_id = c.course_id;
+
+-- LEFT JOIN
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Students s
+LEFT JOIN Courses c ON s.course_id = c.course_id;
+
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Courses c
+LEFT JOIN Students s ON s.course_id = c.course_id;
+
+-- RIGHT JOIN
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Students s
+RIGHT JOIN Courses c ON s.course_id = c.course_id;
+
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Courses c	
+RIGHT JOIN Students s ON s.course_id = c.course_id;
+
+-- FULL JOIN (Not supported in MySQL directly - use UNION of LEFT and RIGHT JOIN)
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Students s
+LEFT JOIN Courses c ON s.course_id = c.course_id
+UNION
+SELECT s.student_id, s.student_name, c.course_name 
+FROM Students s
+RIGHT JOIN Courses c ON s.course_id = c.course_id;
