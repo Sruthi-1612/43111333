@@ -61,7 +61,7 @@ SELECT s.student_id, s.student_name, c.course_name
 FROM Courses c	
 RIGHT JOIN Students s ON s.course_id = c.course_id;
 
--- FULL JOIN (Not supported in MySQL directly - use UNION of LEFT and RIGHT JOIN)
+-- FULL JOIN (Not supported in MySQL directly .so, use UNION of LEFT and RIGHT JOIN)
 SELECT s.student_id, s.student_name, c.course_name 
 FROM Students s
 LEFT JOIN Courses c ON s.course_id = c.course_id
@@ -69,3 +69,4 @@ UNION
 SELECT s.student_id, s.student_name, c.course_name 
 FROM Students s
 RIGHT JOIN Courses c ON s.course_id = c.course_id;
+
