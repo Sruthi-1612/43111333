@@ -1,0 +1,42 @@
+package nov19;
+
+public class Abstraction {
+
+    public static void main(String[] args) {
+        HDFC h = new HDFC();
+        h.agriLoan();
+        h.eduLoan();
+
+        DhanaLaxmi d = new DhanaLaxmi();
+        d.agriLoan();
+        d.eduLoan();
+    }
+}
+abstract class RBI {
+    private final void RBIBanking() {
+        System.out.println("Secret..");
+    }
+
+    abstract void agriLoan();
+    abstract void eduLoan();
+}
+class HDFC extends RBI {
+    @Override
+    void agriLoan() {
+        System.out.println("HDFC Agri Loan: 12%");
+    }
+    @Override
+    void eduLoan() {
+        System.out.println("HDFC Education Loan: 10%");
+    }
+}
+class DhanaLaxmi extends RBI {
+    @Override
+    void agriLoan() {
+        System.out.println("DhanaLaxmi Agri Loan: 11%");
+    }
+    @Override
+    void eduLoan() {
+        System.out.println("DhanaLaxmi Education Loan: 9%");
+    }
+}

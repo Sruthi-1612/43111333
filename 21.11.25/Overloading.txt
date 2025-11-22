@@ -1,0 +1,22 @@
+package nov19;
+
+public class Overloading {
+	public static void main(String args[]){
+	basicc b = new basicc();
+	b.add(1,2);
+	b.add(1,2.2);
+	b.add(3,5,6);
+}
+}
+//OVERLOADING
+class basicc{
+	void add(int a,int b){
+		System.out.println(a+b);
+	}
+	void add(int a,double b){
+		System.out.println(a+b);
+	}
+	void add(int a,int b,int c){
+		System.out.print(a+b+c);
+	}
+}

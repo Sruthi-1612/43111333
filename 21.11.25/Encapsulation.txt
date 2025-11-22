@@ -1,0 +1,49 @@
+package nov19;
+public class Encapsulation {
+    public static void main(String[] args) {
+        PhonePe p = new PhonePe();
+
+        p.setName("Sruthi");
+        p.setEmail("sruthi@gmail.com");
+        p.setBalance(1000000);
+
+        p.checkDetails();
+    }
+}
+//ENCAPSULATOIN
+class SBI {
+    private String name;
+    private String email;
+    private long balance;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setBalance(long balance) {
+        this.balance = balance;
+    }
+
+    public long getBalance() {
+        return balance;
+    }
+}
+class PhonePe extends SBI {
+    void checkDetails() {
+        System.out.println(getName());
+        System.out.println(getEmail());
+        System.out.println(getBalance());
+    }
+}

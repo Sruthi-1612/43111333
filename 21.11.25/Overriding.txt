@@ -1,0 +1,32 @@
+package nov19;
+
+public class basic {
+
+	public static void main(String[] args) {
+		GrandFather1 gf= new GrandFather1();
+		Son4 s=new Son4();
+		s.Bike();
+	}
+
+}
+
+//OVERRIDING
+class GrandFather1{
+	void Bike(){
+		System.out.println("Splender");
+	}
+}
+
+class Father2 extends GrandFather1{
+	void Bike(){
+		super.Bike();
+		System.out.println("Royal Enfield 2002");
+	}
+}
+
+class Son4 extends Father2{
+	void Bike(){
+		super.Bike();
+		System.out.println("Kwasaki Z H2");
+	}
+}

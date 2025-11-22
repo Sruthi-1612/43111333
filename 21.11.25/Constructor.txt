@@ -1,0 +1,25 @@
+package nov19;
+
+public class Constructor {
+
+    public static void main(String[] args) {
+        new Student();
+        new Student("Sruthi");
+        new Student(101, "BB");
+    }
+}
+//CONSTRUCTOR
+class Student {
+
+    Student() {
+        System.out.println("Default Constructor Called");
+    }
+
+    Student(String name) {
+        System.out.println("Student Name: " + name);
+    }
+
+    Student(int id, String name) {
+        System.out.println("Student ID: " + id + ", Name: " + name);
+    }
+}

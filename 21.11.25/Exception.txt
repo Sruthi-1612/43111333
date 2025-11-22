@@ -1,0 +1,50 @@
+package nov19;
+import java.util.Scanner;
+
+public class Exception {
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+		try{
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			System.out.println(a/b);
+		}
+		catch(ArithmeticException e){
+			System.out.println("You have done a small mistake"+e);
+			int a = sc.nextInt();
+			int b = sc.nextInt();
+			System.out.println(a/b);
+		}
+		finally{
+			System.out.println("Thanks you , Visit again");
+		}
+		indexoutofbond ob = new indexoutofbond();
+		ob.exception();
+	}
+}
+
+class indexoutofbond{
+	void exception(){
+	Scanner sc = new Scanner(System.in);
+	try{
+    int a[] = {1, 2, 3, 4, 5};
+
+    System.out.println("Enter the index");
+    int c = sc.nextInt();
+
+    System.out.println("Value at index " + c + " = " + a[c]);
+	}
+	catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("Wrong index entered,try again");
+		int a[] = {1, 2, 3, 4, 5};
+
+	    System.out.println("Enter the index");
+	    int c = sc.nextInt();
+
+	    System.out.println("Value at index " + c + " = " + a[c]);
+	}
+	finally{
+		System.out.println("Thank you");
+	}
+	}
+}

@@ -1,0 +1,32 @@
+package nov19;
+
+public class Hierarchical {
+    public static void main(String[] args) {
+
+        Son s1 = new Son();
+        s1.bike();
+        s1.oldBike();
+
+        Son3 s2 = new Son3();
+        s2.car();
+        s2.oldBike();
+    }
+}
+
+class Father1 {
+    void oldBike() {
+        System.out.println("Royal Enfield 2002");
+    }
+}
+
+class Son extends Father1 {
+    void bike() {
+        System.out.println("KTM 390");
+    }
+}
+
+class Son3 extends Father1 {
+    void car() {
+        System.out.println("BMW");
+    }
+}
