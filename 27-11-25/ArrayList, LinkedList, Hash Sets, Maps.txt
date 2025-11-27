@@ -1,0 +1,334 @@
+// ArrayList & LinkedList:
+
+
+package placement;
+import java.util.*;
+public class ArrayLinkedList {
+	public static void main(String[]args){
+		// Integer ArrayList
+        ArrayList<Integer> intList = new ArrayList<>();
+        intList.add(10);
+        intList.add(20);
+        intList.add(30);
+
+        // String LinkedList
+        LinkedList<String> strList = new LinkedList<>();
+        strList.add("Apple");
+        strList.add("Banana");
+        strList.add("Cherry");
+
+        // Combine both into one list of Object type
+        ArrayList<Object> combinedList = new ArrayList<>();
+        combinedList.addAll(intList);
+        combinedList.addAll(strList);
+
+        // Using Iterator to print
+        Iterator<Object> itr = combinedList.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+	}
+}
+
+
+
+
+
+
+
+
+
+// ArrayList & LinkedList(Add & Remove Operations):
+
+package placement;
+import java.util.*;
+public class ArrayLinkedList {
+	public static void main(String[]args){
+		// Integer ArrayList
+        ArrayList<Integer> intList = new ArrayList<>();
+        intList.add(10);
+        intList.add(20);
+        intList.add(30);
+
+        // String LinkedList
+        LinkedList<String> strList = new LinkedList<>();
+        strList.add("Apple");
+        strList.add("Banana");
+        strList.add("Cherry");
+
+        // Combine both into one list of Object type
+        ArrayList<Object> combinedList = new ArrayList<>();
+        combinedList.addAll(intList);
+        combinedList.addAll(strList);
+
+        // Add elements to combinedList
+        combinedList.add(100);           // add integer
+        combinedList.add("Mango");       // add string
+
+        // Remove elements from combinedList
+        combinedList.remove(1);           // remove element at index 1 (20)
+        combinedList.remove("Cherry");    // remove element by value
+
+        // Using Iterator to print
+        Iterator<Object> itr = combinedList.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+	}
+}
+
+
+
+
+
+// other operations :
+
+package placement;
+import java.util.*;
+
+public class ArrayLinkedList {
+    public static void main(String[]args){
+
+        // Integer ArrayList
+        ArrayList<Integer> intList = new ArrayList<>();
+        intList.add(10);
+        intList.add(20);
+        intList.add(30);
+
+        // String LinkedList
+        LinkedList<String> strList = new LinkedList<>();
+        strList.add("Apple");
+        strList.add("Banana");
+        strList.add("Cherry");
+
+        // Combine both into one list of Object type
+        ArrayList<Object> combinedList = new ArrayList<>();
+        combinedList.addAll(intList);
+        combinedList.addAll(strList);
+
+        // Add elements to combinedList
+        combinedList.add(100);           // add integer
+        combinedList.add("Mango");       // add string
+
+        // Remove elements from combinedList
+        combinedList.remove(1);           // remove element at index 1 (20)
+        combinedList.remove("Cherry");    // remove element by value
+
+        // Using Iterator to print
+        Iterator<Object> itr = combinedList.iterator();
+        while (itr.hasNext()) {
+            System.out.println(itr.next());
+        }
+
+        // Add element at specific position
+        combinedList.add(2, "Inserted");
+        
+        // Replace an element
+        combinedList.set(0, 999);
+
+        // Check if a value exists
+        System.out.println("Contains Mango? : " + combinedList.contains("Mango"));
+
+        // Get element at index
+        System.out.println("Element at index 3 : " + combinedList.get(3));
+
+        // Size of list
+        System.out.println("Size of combinedList : " + combinedList.size());
+
+        // Convert to array
+        Object arr[] = combinedList.toArray();
+        System.out.println("Array form : " + Arrays.toString(arr));
+
+        // Traversing using for-each loop
+        System.out.println("Using for-each loop:");
+        for(Object o : combinedList){
+            System.out.println(o);
+        }
+
+        // Traversing using ListIterator (forward and reverse)
+        ListIterator<Object> listItr = combinedList.listIterator();
+        System.out.println("Forward traversal:");
+        while(listItr.hasNext()){
+            System.out.println(listItr.next());
+        }
+
+        System.out.println("Reverse traversal:");
+        while(listItr.hasPrevious()){
+            System.out.println(listItr.previous());
+        }
+
+        // Removing by index and value again
+        combinedList.remove("Mango");
+        combinedList.remove(0);
+
+        // Clear the list
+        combinedList.clear();
+        System.out.println("After clear : " + combinedList);
+
+    }
+}
+
+
+
+
+
+// HASH  SET :
+
+package placement;
+import java.util.*;
+public class Set {
+    public static void main(String[] args) {
+
+        // HashSet (no order)
+        HashSet<String> hashSet = new HashSet<>();
+        hashSet.add("Ravi");
+        hashSet.add("Vijay");
+        hashSet.add("Ravi");
+        hashSet.add("Ajay");
+
+        System.out.println("HashSet Output:");
+        for (String s : hashSet) {
+            System.out.println(s);
+        }
+
+        System.out.println();
+
+        // LinkedHashSet (insertion order)
+        LinkedHashSet<String> linkedHashSet = new LinkedHashSet<>();
+        linkedHashSet.add("Ravi");
+        linkedHashSet.add("Vijay");
+        linkedHashSet.add("Ravi");
+        linkedHashSet.add("Ajay");
+
+        System.out.println("LinkedHashSet Output:");
+        for (String s : linkedHashSet) {
+            System.out.println(s);
+        }
+
+        System.out.println();
+
+        // TreeSet (sorted order)
+        TreeSet<String> treeSet = new TreeSet<>();
+        treeSet.add("Ravi");
+        treeSet.add("Vijay");
+        treeSet.add("Ravi");
+        treeSet.add("Ajay");
+
+        System.out.println("TreeSet Output:");
+        for (String s : treeSet) {
+            System.out.println(s);
+        }
+    }
+}
+
+
+
+
+
+//  MAPS:
+
+
+package placement;
+import java.util.*;
+
+public class Maps {
+    public static void main(String[] args) {
+
+        // ------ HashMap ------- 
+        System.out.println("----- HashMap (No Order) -----");
+        HashMap<Integer, String> hashMap = new HashMap<>();
+
+        // put()
+        hashMap.put(1, "Apple");
+        hashMap.put(2, "Banana");
+        hashMap.put(3, "Cherry");
+
+        // putIfAbsent()
+        hashMap.putIfAbsent(2, "Guava");   // will not insert
+        hashMap.putIfAbsent(4, "Mango");   // inserts (4, Mango)
+
+        // containsKey() & containsValue()
+        System.out.println("Contains key 2? " + hashMap.containsKey(2));
+        System.out.println("Contains value 'Mango'? " + hashMap.containsValue("Mango"));
+
+        // replace()
+        hashMap.replace(3, "Papaya");               // replace value
+        hashMap.replace(1, "Apple", "Pineapple");  // conditional replace
+
+        // compute()
+        hashMap.compute(2, (k, v) -> v + " Fruit");
+
+        // computeIfAbsent()
+        hashMap.computeIfAbsent(10, k -> "NewFruit");
+
+        // computeIfPresent()
+        hashMap.computeIfPresent(4, (k, v) -> "Sweet " + v);
+
+        // merge()
+        hashMap.merge(3, " Juice", (oldVal, newVal) -> oldVal + newVal);
+
+        // remove()
+        hashMap.remove(10);                // remove by key
+        hashMap.remove(4, "Sweet Mango");  // remove by key & value (false)
+
+        // Traversing using entrySet()
+        System.out.println("HashMap entries:");
+        for (Map.Entry<Integer, String> e : hashMap.entrySet()) {
+            System.out.println(e.getKey() + " = " + e.getValue());
+        }
+
+        // keySet() and values()
+        System.out.println("Keys: " + hashMap.keySet());
+        System.out.println("Values: " + hashMap.values());
+
+        // size(), isEmpty()
+        System.out.println("Size = " + hashMap.size());
+        System.out.println("Is Empty? " + hashMap.isEmpty());
+
+
+        // ------ LinkedHashMap ------
+        System.out.println("\n ------ LinkedHashMap (Insertion Order) -------");
+        LinkedHashMap<Integer, String> linkedMap = new LinkedHashMap<>();
+
+        linkedMap.put(10, "Red");
+        linkedMap.put(20, "Green");
+        linkedMap.put(30, "Blue");
+
+        linkedMap.putIfAbsent(20, "White");
+        linkedMap.replace(30, "SkyBlue");
+
+        linkedMap.compute(10, (k, v) -> v.toUpperCase());
+        linkedMap.merge(40, "Pink", (oldVal, newVal) -> oldVal + newVal);
+
+        System.out.println("LinkedHashMap entries:");
+        for (Map.Entry<Integer, String> e : linkedMap.entrySet()) {
+            System.out.println(e.getKey() + " = " + e.getValue());
+        }
+
+
+        // --------------- TreeMap -----------------
+        System.out.println("\n------- TreeMap (Ascending Order of Keys) --------");
+        TreeMap<Integer, String> treeMap = new TreeMap<>();
+
+        treeMap.put(300, "Dog");
+        treeMap.put(100, "Cat");
+        treeMap.put(200, "Cow");
+
+        treeMap.putIfAbsent(200, "Goat");
+        treeMap.replace(100, "Tiger");
+
+        treeMap.computeIfPresent(300, (k, v) -> v + " Animal");
+        treeMap.merge(150, "Horse", (o, n) -> o + n);
+
+        System.out.println("TreeMap entries:");
+        for (Map.Entry<Integer, String> e : treeMap.entrySet()) {
+            System.out.println(e.getKey() + " = " + e.getValue());
+        }
+
+
+        // clear()
+        System.out.println("\nClearing TreeMap...");
+        treeMap.clear();
+        System.out.println("TreeMap Empty? " + treeMap.isEmpty());
+    }
+}
