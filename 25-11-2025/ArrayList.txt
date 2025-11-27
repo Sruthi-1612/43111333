@@ -1,0 +1,84 @@
+package placement;
+import java.util.*;
+
+class printarray{
+	void run(){
+		int array [] = {12,4,66,4,3};
+		String sarr = Arrays.toString(array);
+		System.out.print(sarr);
+	}
+}
+
+class CreateArrayListFromArray {
+    void run() {
+        Integer array[] = {34, 56, 43, 67, 34};
+        ArrayList<Integer> al = new ArrayList<>(Arrays.asList(array));
+
+        System.out.println(al);
+    }
+}
+
+class FoundaElementInaArrayString{
+	void run(){
+		String[] arr = {"apple", "banana", "mango"};
+		String value = "banana";
+		boolean b = Arrays.asList(arr).contains(value);
+		System.out.println(b);
+	}
+}
+class FoundaElementInaArrayint{
+	void run(){
+        Integer array[] = {34, 56, 43, 67, 34};
+        int value = 54;
+        for(int num : array){
+        	if(num == value){
+        		System.out.println("element found");
+        		break;
+        	}
+        
+        }
+	}
+}
+class arrayconcat{
+	void run(){
+		Integer arr[]  = {1,3,5,6,7};
+		Integer arr2[] = {5,7,5,85};
+		ArrayList <Integer> al = new ArrayList<>(Arrays.asList(arr));
+		al.addAll(Arrays.asList(arr2));
+		System.out.println(al);
+		LinkedHashSet <Integer> hs = new LinkedHashSet<>(al);
+		System.out.println(hs);
+		
+	}
+}
+class reverse{
+	void run(){
+		Integer arr[]  = {1,3,5,6,7};
+		for(int i= arr.length-1 ; i>=0 ; i--){
+			System.out.print(arr[i]+ " ");
+		}
+	}
+}
+class removeElement{
+	void run(){
+		Integer arr[]  = {1,3,5,6,7};
+		
+	}
+}
+
+public class DSA {
+	public static void main(String args[]){
+		printarray obj = new printarray();
+		CreateArrayListFromArray obj1 = new CreateArrayListFromArray();
+		FoundaElementInaArrayString obj2 = new FoundaElementInaArrayString();
+		FoundaElementInaArrayint obj3 = new FoundaElementInaArrayint();
+		arrayconcat obj4 = new arrayconcat();
+		reverse obj5 = new reverse();
+		obj.run();
+		obj1.run();
+		obj2.run();
+		obj3.run();
+		obj4.run();
+		obj5.run();
+	}
+}

@@ -1,0 +1,104 @@
+package nov19;
+import java.util.*;
+
+public class ArrayExamples {
+
+    public static void main(String[] args) {
+
+        System.out.println("1. Declare Arrays");
+        int a[] = new int[40];
+        String[] aArray = new String[5];
+        String[] bArray = {"a","b","c","d","e"};
+        String[] cArray = new String[]{"a","b","c","d","e"};
+
+        System.out.println(Arrays.toString(bArray));
+        System.out.println();
+
+        System.out.println("2. Print Array Properly");
+        int[] intArray = {1,2,3,4,5};
+        System.out.println(intArray);
+        System.out.println(Arrays.toString(intArray));
+        System.out.println();
+
+        System.out.println("3. Create ArrayList from Array");
+        String[] arr1 = {"a","b","c","d","e"};
+        ArrayList<String> list1 = new ArrayList<>(Arrays.asList(arr1));
+        System.out.println(list1);
+        System.out.println();
+
+        System.out.println("4. Check Array Contains Value");
+        String[] arr2 = {"abc","bcd","cba","dcb","efg"};
+        boolean found = Arrays.asList(arr2).contains("abc");
+        System.out.println(found);
+        System.out.println();
+
+        System.out.println("5. Concatenate Two Arrays");
+        int[] arr3 = {1,2,3,4,5};
+        int[] arr4 = {6,7,8,9,10};
+
+        // Normal Java method to merge arrays
+        int[] merged = new int[arr3.length + arr4.length];
+        System.arraycopy(arr3, 0, merged, 0, arr3.length);
+        System.arraycopy(arr4, 0, merged, arr3.length, arr4.length);
+
+        System.out.println(Arrays.toString(merged));
+        System.out.println();
+
+        System.out.println("6. Join Array Elements into String");
+        String[] temp = {"a","b","c"};
+        String joined = String.join(", ", temp);
+        System.out.println(joined);
+        System.out.println();
+
+        System.out.println("7. Convert ArrayList to Array");
+        ArrayList<String> list2 = new ArrayList<>(Arrays.asList("a","b","c","d","e"));
+        String[] newArr = new String[list2.size()];
+        list2.toArray(newArr);
+        System.out.println(Arrays.toString(newArr));
+        System.out.println();
+
+        System.out.println("8. Convert Array To Set");
+        String[] arr5 = {"a","b","c","d","e","a"};
+        Set<String> set1 = new HashSet<>(Arrays.asList(arr5));
+        System.out.println(set1);
+        System.out.println();
+
+        System.out.println("9. Reverse Array");
+        int[] arr6 = {1,2,3,4,5};
+        reverse(arr6);
+        System.out.println(Arrays.toString(arr6));
+        System.out.println();
+
+        System.out.println("10. Remove Element From Array");
+        int[] arr7 = {1,2,3,4,5};
+        int[] removed = removeElement(arr7, 3);
+        System.out.println(Arrays.toString(removed));
+        System.out.println();
+    }
+
+    // Reverse array manually
+    static void reverse(int[] array) {
+        for (int i = 0, j = array.length - 1; i < j; i++, j--) {
+            int temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }
+    }
+
+    // Remove element manually
+    static int[] removeElement(int[] array, int value) {
+        int count = 0;
+        for (int x : array) {
+            if (x != value) count++;
+        }
+
+        int[] result = new int[count];
+        int idx = 0;
+
+        for (int x : array) {
+            if (x != value) result[idx++] = x;
+        }
+
+        return result;
+    }
+}

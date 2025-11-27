@@ -1,0 +1,50 @@
+package placement;
+public class OMRKing {
+
+    public static void main(String[] args) {
+
+        // Create thread objects
+        Minute minuteThread = new Minute();
+        Seconds secondThread = new Seconds();
+
+        // Start the threads
+        minuteThread.start();
+        secondThread.start();
+    }
+}
+
+// Minute Thread 
+class Minute extends Thread {
+
+    @Override
+    public void run() {
+
+        for (int min = 0; min <= 59; min++) {
+            System.out.println("Minutes : " + min);
+
+            try {
+                Thread.sleep(60000);  // 60 seconds
+            } catch (InterruptedException e) {
+                System.out.println("Minute Thread Interrupted");
+            }
+        }
+    }
+}
+
+//  Seconds Thread 
+class Seconds extends Thread {
+
+    @Override
+    public void run() {
+
+        for (int sec = 0; sec <= 59; sec++) {
+            System.out.println("Seconds : " + sec);
+
+            try {
+                Thread.sleep(1000);  // 1 second
+            } catch (InterruptedException e) {
+                System.out.println("Seconds Thread Interrupted");
+            }
+        }
+    }
+}

@@ -1,0 +1,164 @@
+package nov19;
+import java.util.*;
+
+public class StringExamples {
+
+    public static void main(String[] args) {
+
+        // 1. Creating Strings
+        System.out.println("1) Creating Strings");
+        String s1 = "welcome";
+        char[] ch = {'j','a','v','a'};
+        String s2 = new String(ch);
+        String s3 = new String("welcome");
+        System.out.println(s1);
+        System.out.println(s2);
+        System.out.println(s3);
+        System.out.println();
+
+        // 2. String Pool & intern()
+        System.out.println("2) String Pool & intern()");
+        String a = "Hello";
+        String b = "Hello";
+        String c = new String("Hello");
+        String d = c.intern();
+        System.out.println(a == b);  
+        System.out.println(a == c);  
+        System.out.println(a == d);  
+        System.out.println();
+
+        // 3. length(), charAt(), substring()
+        System.out.println("3) Basic Methods");
+        String x = "Sachin Tendulkar";
+        System.out.println(x.length());
+        System.out.println(x.charAt(0));
+        System.out.println(x.substring(0,6));
+        System.out.println();
+
+        // 4. toUpperCase, toLowerCase, trim
+        System.out.println("4) Case & Trim");
+        String t = "  Java Program  ";
+        System.out.println(t.trim());
+        System.out.println(t.trim().toUpperCase());
+        System.out.println(t.trim().toLowerCase());
+        System.out.println();
+
+        // 5. startsWith(), endsWith(), contains()
+        System.out.println("5) startsWith, endsWith, contains");
+        String s = "Sachin";
+        System.out.println(s.startsWith("Sa"));
+        System.out.println(s.endsWith("in"));
+        System.out.println(s.contains("chi"));
+        System.out.println();
+
+        // 6. equals(), equalsIgnoreCase(), compareTo(), ==
+        System.out.println("6) equals, ==, compareTo");
+        String p1 = "Sachin";
+        String p2 = "Sachin";
+        String p3 = new String("sachin");
+        System.out.println(p1.equals(p2));
+        System.out.println(p1.equalsIgnoreCase(p3));
+        System.out.println(p1 == p2);
+        System.out.println(p1 == p3);
+        System.out.println(p1.compareTo(p2));
+        System.out.println();
+
+        // 7. concat() and +
+        System.out.println("7) concat & +");
+        System.out.println("Hello " + "World");
+        System.out.println("Hello".concat(" Java"));
+        System.out.println();
+
+        // 8. valueOf()
+        System.out.println("8) valueOf()");
+        int num = 20;
+        String st = String.valueOf(num);
+        System.out.println(st + 10);
+        System.out.println();
+
+        // 9. replace() & replaceAll()
+        System.out.println("9) replace & replaceAll");
+        String sen = "Java is good. Java is powerful.";
+        System.out.println(sen.replace("Java", "Python"));
+        System.out.println("javatpoint".replaceAll("a", "e"));
+        System.out.println();
+
+        // 10. split()
+        System.out.println("10) split()");
+        String sp = "welcome to java world";
+        String[] arr = sp.split(" ");
+        for(String w : arr) System.out.println(w);
+        System.out.println();
+
+        // 11. indexOf()
+        System.out.println("11) indexOf()");
+        String i = "Find index of index";
+        System.out.println(i.indexOf("index"));
+        System.out.println(i.indexOf("index", 6));
+        System.out.println();
+
+        // 12. String.join()
+        System.out.println("12) join()");
+        String[] letters = {"a","b","c"};
+        System.out.println(String.join(", ", letters));
+        System.out.println();
+
+        // 13. char[] -> String again
+        System.out.println("13) char[] to String");
+        char[] cArr = {'A','B','C'};
+        System.out.println(new String(cArr));
+        System.out.println();
+
+        // 14. StringBuffer
+        System.out.println("14) StringBuffer");
+        StringBuffer sb = new StringBuffer("Hello");
+        sb.append(" Java");
+        sb.insert(1, "X");
+        sb.replace(1,2,"Y");
+        sb.delete(1,2);
+        sb.reverse();
+        System.out.println(sb);
+        System.out.println("Capacity: " + sb.capacity());
+        System.out.println();
+
+        // 15. StringBuilder
+        System.out.println("15) StringBuilder");
+        StringBuilder sb2 = new StringBuilder("Hello");
+        sb2.append(" Java");
+        sb2.insert(1,"Z");
+        sb2.replace(1,2,"Q");
+        sb2.delete(1,2);
+        sb2.reverse();
+        System.out.println(sb2);
+        System.out.println();
+
+        // 16. length() & charAt() on SB/SBuffer
+        System.out.println("16) length and charAt");
+        StringBuffer sb3 = new StringBuffer("Hello");
+        System.out.println(sb3.length());
+        System.out.println(sb3.charAt(1));
+        System.out.println();
+
+        // 17. Performance (small test)
+        System.out.println("17) Performance test");
+        long start = System.currentTimeMillis();
+        StringBuffer sbb = new StringBuffer("Java");
+        for(int k=0;k<5000;k++) sbb.append("X");
+        long time1 = System.currentTimeMillis() - start;
+
+        start = System.currentTimeMillis();
+        StringBuilder sbd = new StringBuilder("Java");
+        for(int k=0;k<5000;k++) sbd.append("X");
+        long time2 = System.currentTimeMillis() - start;
+
+        System.out.println("Buffer Time: " + time1);
+        System.out.println("Builder Time: " + time2);
+        System.out.println();
+
+        // 18. replaceAll (regex)
+        System.out.println("18) replaceAll regex");
+        String mix = "abc123def";
+        System.out.println(mix.replaceAll("\\d", ""));
+        System.out.println();
+    }
+}
